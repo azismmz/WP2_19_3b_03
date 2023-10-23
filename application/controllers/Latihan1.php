@@ -5,7 +5,14 @@ class Latihan1 extends CI_Controller {
 
 	public function index()
 	{
-		echo "Selamat Datang.. selamat belajar Web Programming";
+		echo "Selamat Datang.. selamat belajar Web Programming <br>";
+
+        $kategori =  $this->ModelBuku->getKategori();
+        
+        foreach ($kategori->result() as $kat) {
+            echo $kat->id_kategori .'-'. $kat->nama_kategori . "<br>" ;
+        }
+        // var_dump($kategori->result());die;
 	}
 
     public function penjumlahan($n1=null, $n2=null)
