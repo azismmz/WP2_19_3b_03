@@ -135,5 +135,33 @@ public function registrasi()
     }
 }
 
+public function fetchData()
+    {
+        $url = "https://api.npoint.io/99c279bb173a6e28359c/data";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        if ($response) {
+            
+            // $data['surahs'] = json_decode($response, true);
+            // $this->load->view('surah_view', $data);
+            $data = json_decode($response, true);
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_output(json_encode($data));
+        } else {
+            $this->output
+                 ->set_content_type('application/json')
+                 ->set_output(json_encode(['error' => 'Unable to fetch data']));
+        }
+    }
+
+
 }
 ?>
