@@ -4,10 +4,10 @@ class Autentifikasi extends CI_Controller
     public function index()
     {
         // echo password_hash("123", PASSWORD_DEFAULT);die;
+        // session_destroy();die;
 
         // Jika statusnya sudah login, maka tidak bisa mengakses halaman login 
         // alias dikembalikan ke tampilan user
-        // session_destroy();die;
         if ($this->session->userdata('role_id')==2) {
             redirect('user');
         } elseif ($this->session->userdata('role_id')==1) {
@@ -119,10 +119,9 @@ public function registrasi()
         $this->load->view('templates/aute_footer');
     } else {
         // Jika validasi berhasil, simpan data pengguna ke dalam tabel user
-        $email = $this->input->post('email', true);
         $data = [
             'nama' => htmlspecialchars($this->input->post('nama', true)),
-            'email' => htmlspecialchars($email),
+            'email' => htmlspecialchars($this->input->post('email', true)),
             'image' => 'default.jpg',
             'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
             'role_id' => 2,
@@ -134,7 +133,10 @@ public function registrasi()
         redirect('autentifikasi');
     }
 }
-
+function logout() {
+    session_destroy();
+    redirect('autentifikasi');
+}
 public function fetchData()
     {
         $url = "https://api.npoint.io/99c279bb173a6e28359c/data";
@@ -149,12 +151,12 @@ public function fetchData()
 
         if ($response) {
             
-            // $data['surahs'] = json_decode($response, true);
-            // $this->load->view('surah_view', $data);
-            $data = json_decode($response, true);
-            $this->output
-                 ->set_content_type('application/json')
-                 ->set_output(json_encode($data));
+            $data['surahs'] = json_decode($response, true);
+            $this->load->view('surah_view', $data);
+            // $data = json_decode($response, true);
+            // $this->output
+            //      ->set_content_type('application/json')
+            //      ->set_output(json_encode($data));
         } else {
             $this->output
                  ->set_content_type('application/json')
