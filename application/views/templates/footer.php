@@ -50,6 +50,29 @@ $(document).ready(function() {
 $("#table-datatable").dataTable();
 });
 $('.alert-message').alert().delay(3500).slideUp('slow');
+
+$(document).ready(function(){
+    $('.editBukuBtn').on('click', function(){
+        // Mengambil data dari atribut data-*
+        var id = $(this).data('id');
+        var judul = $(this).data('judul');
+        var pengarang = $(this).data('pengarang');
+        var penerbit = $(this).data('penerbit');
+        var tahun_terbit = $(this).data('tahun_terbit');
+        var isbn = $(this).data('isbn');
+        var stok = $(this).data('stok');
+
+        // Mengisi form modal dengan data yang diambil
+        $('#edit-id').val(id);
+        $('#edit-judul_buku').val(judul);
+        $('#edit-pengarang').val(pengarang);
+        $('#edit-penerbit').val(penerbit);
+        $('#edit-tahun_terbit').val(tahun_terbit);
+        $('#edit-isbn').val(isbn);
+        $('#edit-stok').val(stok);
+    });
+});
+
 </script>
 </body>
 </html>

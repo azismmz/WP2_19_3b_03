@@ -49,9 +49,21 @@
                                 </picture>
                             </td>
                             <td>
-                                <a href="<?= base_url('buku/ubahBuku/').$b['id'];?>" class="badge badge-info">
+                                <!-- <a href="<?= base_url('buku/ubahBuku/').$b['id'];?>" class="badge badge-info">
                                     <i class="fas fa-edit"></i> Ubah
-                                </a>
+                                </a> -->
+                                <a href="#" class="btn btn-info editBukuBtn" 
+   data-id="<?= $b['id']; ?>"
+   data-judul="<?= $b['judul_buku']; ?>"
+   data-pengarang="<?= $b['pengarang']; ?>"
+   data-penerbit="<?= $b['penerbit']; ?>"
+   data-tahun_terbit="<?= $b['tahun_terbit']; ?>"
+   data-isbn="<?= $b['isbn']; ?>"
+   data-stok="<?= $b['stok']; ?>"
+   data-toggle="modal" data-target="#editBukuModal">
+   Edit
+</a>
+
                                 <a href="<?= base_url('buku/hapusbuku/').$b['id'];?>" onclick="return confirm('Kamu yakin akan menghapus <?= $judul.' '.$b['judul_buku'];?> ?');" class="badge badge-danger">
                                     <i class="fas fa-trash"></i> Hapus
                                 </a>
@@ -123,3 +135,55 @@
     </div>
 </div>
 <!-- End of Modal Tambah Buku -->
+
+<!-- Modal Edit Buku -->
+<div class="modal fade" id="editBukuModal" tabindex="-1" role="dialog" aria-labelledby="editBukuModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editBukuModalLabel">Edit Buku</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Form edit buku -->
+            <form action="<?= base_url('buku/ubahBuku'); ?>" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <!-- Sembunyikan field untuk ID buku -->
+                    <input type="hidden" name="id" id="edit-id">
+
+                    <!-- Berbagai field untuk edit buku -->
+                    <div class="form-group">
+                        <label for="edit-judul_buku">Judul Buku</label>
+                        <input type="text" class="form-control" id="edit-judul_buku" name="judul_buku" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-pengarang">Pengarang</label>
+                        <input type="text" class="form-control" id="edit-pengarang" name="pengarang" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-penerbit">Penerbit</label>
+                        <input type="text" class="form-control" id="edit-penerbit" name="penerbit" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-tahun_terbit">Tahun Terbit</label>
+                        <input type="number" class="form-control" id="edit-tahun_terbit" name="tahun_terbit" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-isbn">ISBN</label>
+                        <input type="text" class="form-control" id="edit-isbn" name="isbn" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-stok">Stok</label>
+                        <input type="number" class="form-control" id="edit-stok" name="stok" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End of Modal Edit Buku -->
